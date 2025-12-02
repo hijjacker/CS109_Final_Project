@@ -99,13 +99,13 @@ tab_cover, tab_motivation, tab_background, tab_methods, tab_model, tab_reference
 ])
 
 with tab_cover:
-    st.image("deep-persistent-slab.webp", "Avalanche forecasters assess a deep persistant slab in the Cascades.")
     st.write("""
                 **Uncertain Slopes** is a submission to Stanford's CS109 final project challenge for Fall 2025. Its goal is to create a more transparent distribution of a particular slope's
              avalanche probability (ie, an uncertain slope!), rather than a single point value.
                  """)
 
 with tab_motivation:
+    st.image("deep-persistent-slab.webp", "Avalanche forecasters assess a deep persistant slab in the Cascades.")
     st.subheader("Why this topic", )
     st.write("Avalanche danger is not an important concern to the vast majority of people. For those interested in snow sports that take place away from ski resorts, like backcountry skiing, snowmobiling, or mountaineering, avalanches can be a death sentence. It takes a mere 18 inches of snow to trap and kill a fully grown person, and Avalanches account for over 75% of backcountry ski fatalities in the United States. Of these avalanche fatalities, a specific type of avalanche called a **slab avalanche** accounts for 90% of deaths. This project aims to predict slab avalanches.")
     st.image("Slab-Loose.png", "Loose snow avalanches vs. slab avalanches")
