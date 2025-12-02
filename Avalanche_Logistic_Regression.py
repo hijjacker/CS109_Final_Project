@@ -47,10 +47,8 @@ def train_log_reg(X, y, n_steps=2000, step_size=0.01):
 w_hat = train_log_reg(X_train, y_train)
 p_test = sigmoid(X_test @ w_hat)
 y_pred = (p_test >= 0.5).astype(int)
-print("Single-fit accuracy:", (y_pred == y_test).mean())
 
-## Now get distribution of p
-        
+## Now get distribution of p with bootstrapping
 n_boot = 300
 N_train, D = X_train.shape
 
