@@ -12,7 +12,7 @@ from Avalanche_Logistic_Regression import (
 )
 
 @st.cache_resource  # caches across reruns so you don't retrain every slider move
-def load_and_fit_models(n_boot=300, n_steps=2000, step_size=0.01):
+def load_and_fit_models(n_boot=100, n_steps=1000, step_size=0.01):
     # Read CSVs
     train_df = pd.read_csv("train_avalanche_data.csv")
     test_df  = pd.read_csv("test_avalanche_data.csv")
@@ -37,12 +37,23 @@ def load_and_fit_models(n_boot=300, n_steps=2000, step_size=0.01):
     # Bootstrapping to get weight distribution
     boot_weights = np.zeros((n_boot, X_train.shape[1]))
 
+    # Add progress bar for Streamlit
+    progress_bar = st.progress(0)
+    status_text = st.empty()
+
     for b in range(n_boot):
         idx = np.random.randint(0, N_train, size=N_train)
         Xb = X_train[idx]
         yb = y_train[idx]
         wb = train_log_reg(Xb, yb, n_steps=n_steps, step_size=step_size)
         boot_weights[b, :] = wb
+
+        # Update progress
+        if b % 10 == 0:
+            progress_bar.progress((b + 1) / n_boot)
+            status_text.text(f"Bootstrapping: {b+1}/{n_boot}")
+    progress_bar.empty()
+    status_text.empty()
 
     # Also compute test accuracy once (for display)
     p_test = sigmoid(X_test @ w_hat)
